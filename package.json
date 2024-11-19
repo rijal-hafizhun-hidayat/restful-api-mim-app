@@ -2,6 +2,10 @@
   "name": "restful-api-mim-app",
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun run --watch index.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
