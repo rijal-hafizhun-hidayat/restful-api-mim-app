@@ -20,16 +20,18 @@ model post {
   updated_at   DateTime @updatedAt
   post_type_id Int
 
-  post_types post_type  @relation(fields: [post_type_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  meme_types meme_type   @relation(fields: [post_type_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   post_file  post_file?
+  post_type  post_type[]
 }
 
-model post_type {
-  id         Int      @id @default(autoincrement())
-  name       String   @db.VarChar()
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+model meme_type {
+  id         Int         @id @default(autoincrement())
+  name       String      @db.VarChar()
+  created_at DateTime    @default(now())
+  updated_at DateTime    @updatedAt
   post       post[]
+  post_type  post_type[]
 }
 
 model post_file {
@@ -40,4 +42,15 @@ model post_file {
   post_id    Int      @unique
 
   post post @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model post_type {
+  id           Int      @id @default(autoincrement())
+  post_id      Int
+  meme_type_id Int
+  created_at   DateTime
+  updated_at   DateTime
+
+  post      post      @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  meme_type meme_type @relation(fields: [meme_type_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
