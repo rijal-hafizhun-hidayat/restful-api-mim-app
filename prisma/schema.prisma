@@ -14,15 +14,13 @@ datasource db {
 }
 
 model post {
-  id           Int      @id @default(autoincrement())
-  name         String   @db.VarChar()
-  created_at   DateTime @default(now())
-  updated_at   DateTime @updatedAt
-  post_type_id Int
+  id         Int      @id @default(autoincrement())
+  name       String   @db.VarChar()
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  meme_types meme_type   @relation(fields: [post_type_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  post_file  post_file?
-  post_type  post_type[]
+  post_file post_file?
+  post_type post_type[]
 }
 
 model meme_type {
@@ -30,7 +28,6 @@ model meme_type {
   name       String      @db.VarChar()
   created_at DateTime    @default(now())
   updated_at DateTime    @updatedAt
-  post       post[]
   post_type  post_type[]
 }
 
