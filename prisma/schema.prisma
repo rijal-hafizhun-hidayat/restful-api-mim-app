@@ -16,11 +16,12 @@ datasource db {
 model post {
   id         Int      @id @default(autoincrement())
   name       String   @db.VarChar()
+  content    String   @db.VarChar()
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  post_file post_file?
-  post_type post_type[]
+  post_file  post_file?
+  post_types post_type[]
 }
 
 model meme_type {
