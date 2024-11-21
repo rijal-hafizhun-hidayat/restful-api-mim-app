@@ -23,13 +23,19 @@ const uploadPostFile = multer({
   storage: storage,
   fileFilter: (req, file, cb) => {
     const ext = path.extname(file.originalname);
-    if (ext !== ".mp4" && ext !== ".mkv") {
-      return cb(new Error("type file must mp4 or mkv"));
+    if (
+      ext !== ".mp4" &&
+      ext !== ".mkv" &&
+      ext !== ".png" &&
+      ext !== ".jpg" &&
+      ext !== ".jpeg"
+    ) {
+      return cb(new Error("type file must mp4, mkv, png, jpg or jpeg"));
     }
     cb(null, true);
   },
   limits: {
-    fileSize: 2 * 1024 * 1024,
+    fileSize: 1 * 1024 * 1024,
   },
 });
 
