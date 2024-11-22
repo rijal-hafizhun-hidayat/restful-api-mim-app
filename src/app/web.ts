@@ -3,6 +3,7 @@ import express from "express";
 import { apiRouter } from "../router/api-router";
 import { errorMiddleware } from "../middleware/error-middleware";
 import { apiStorageRouter } from "../router/api-storage-router";
+import { apiStaticStorageFileRouter } from "../router/api-static-stroage-file-route";
 
 const web = express();
 
@@ -26,6 +27,7 @@ web.use(cors(corsOptions));
 web.use(express.json());
 web.use(apiRouter);
 web.use(apiStorageRouter);
+web.use(apiStaticStorageFileRouter);
 web.use(errorMiddleware);
 
 export { web };
