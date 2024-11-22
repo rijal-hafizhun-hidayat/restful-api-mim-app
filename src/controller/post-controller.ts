@@ -21,4 +21,21 @@ export class PostController {
       next(error);
     }
   }
+
+  static async getAllPost(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<any> {
+    try {
+      const result = await PostService.getAllPost();
+      return res.status(200).json({
+        statusCode: 200,
+        message: "success get post",
+        data: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

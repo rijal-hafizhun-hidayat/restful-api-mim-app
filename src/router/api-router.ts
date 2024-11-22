@@ -22,6 +22,7 @@ apiRouter.put(
 //end meme_type
 
 //start post
+apiRouter.get("/api/post", PostController.getAllPost);
 apiRouter.post("/api/post", PostController.storePost);
 //end post
 

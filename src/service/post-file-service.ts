@@ -13,6 +13,7 @@ export class PostFileService {
       prisma.post_file.create({
         data: {
           path: requestFile.filename,
+          type_file: requestFile.mimetype,
           post_id: postId,
         },
       }),
