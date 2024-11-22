@@ -35,6 +35,7 @@ model meme_type {
 model post_file {
   id         Int      @id @default(autoincrement())
   path       String   @db.VarChar()
+  type_file  String   @db.VarChar()
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   post_id    Int      @unique
