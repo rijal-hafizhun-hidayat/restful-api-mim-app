@@ -1,7 +1,11 @@
-import type { post, post_file } from "@prisma/client";
+import type { meme_type, post, post_file } from "@prisma/client";
 import type { MemeType } from "./meme-type-model";
 import type { PostTypesWithMemeType } from "./post-type-model";
-import { number } from "zod";
+
+export interface PostQueryParams {
+  search: string;
+  meme_types: meme_type[];
+}
 
 export interface PostWithMemeTypesRequest {
   name: string;
