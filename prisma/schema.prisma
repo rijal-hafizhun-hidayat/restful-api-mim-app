@@ -25,11 +25,13 @@ model post {
 }
 
 model meme_type {
-  id         Int         @id @default(autoincrement())
-  name       String      @db.VarChar()
-  created_at DateTime    @default(now())
-  updated_at DateTime    @updatedAt
-  post_type  post_type[]
+  id               Int         @id @default(autoincrement())
+  name             String      @db.VarChar()
+  background_color String      @db.VarChar()
+  text_color       String      @db.VarChar()
+  created_at       DateTime    @default(now())
+  updated_at       DateTime    @updatedAt
+  post_type        post_type[]
 }
 
 model post_file {

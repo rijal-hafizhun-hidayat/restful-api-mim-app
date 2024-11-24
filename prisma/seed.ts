@@ -7,18 +7,26 @@ async function main() {
       {
         id: 1,
         name: "dark",
+        background_color: "bg-gray-100",
+        text_color: "text-gray-800",
       },
       {
         id: 2,
         name: "politics",
+        background_color: "bg-yellow-100",
+        text_color: "text-yellow-800",
       },
       {
         id: 3,
         name: "critic",
+        background_color: "bg-indigo-100",
+        text_color: "text-indigo-800",
       },
       {
         id: 4,
         name: "social",
+        background_color: "bg-blue-100",
+        text_color: "text-blue-800",
       },
     ],
   });
