@@ -43,7 +43,7 @@ export class PostService {
   static async getAllPost(
     query: Request["query"]
   ): Promise<PostsWithPostTypesAndPostFileResponse[]> {
-    const { search, meme_types } = query;
+    const { search, meme_types, cursor } = query;
 
     const postFilter: any = {};
 
@@ -71,7 +71,7 @@ export class PostService {
       postFilter.AND = [];
       postFilter.AND.push({
         post_types: {
-          some: {
+          every: {
             meme_type_id: {
               in: memeTypesId,
             },
@@ -81,6 +81,7 @@ export class PostService {
     }
 
     const result = await prisma.post.findMany({
+      take: cursor ? parseInt(cursor as string) : 2,
       where: postFilter,
       include: {
         post_file: true,
