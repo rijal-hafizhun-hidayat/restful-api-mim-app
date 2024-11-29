@@ -56,6 +56,7 @@ export const authMiddleware = async (
     };
 
     req.currentUser = formatUser;
+    return next();
   } catch (error: any) {
     let errorMessage = "Token invalid";
     if (error.name === "TokenExpiredError") {
