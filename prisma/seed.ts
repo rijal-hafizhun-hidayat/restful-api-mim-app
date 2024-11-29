@@ -30,6 +30,37 @@ async function main() {
       },
     ],
   });
+
+  const user = await prisma.user.createMany({
+    data: [
+      {
+        id: 1,
+        name: "admin",
+        email: "admin@gmail.com",
+        password:
+          "$argon2id$v=19$m=65536,t=2,p=1$gbeDqrnOu39J7WmVAe+jC4/6y6wHu81SOPELbwxaJ7M$Wznj+VARyCqJzz5HGNe9djenbP9DPN/4c1tK2412nSo",
+      },
+    ],
+  });
+
+  const role = await prisma.role.createMany({
+    data: [
+      {
+        id: 1,
+        name: "admin",
+      },
+    ],
+  });
+
+  const userRole = await prisma.user_role.createMany({
+    data: [
+      {
+        id: 1,
+        user_id: 1,
+        role_id: 1,
+      },
+    ],
+  });
   console.log(memeTypes);
 }
 main()
