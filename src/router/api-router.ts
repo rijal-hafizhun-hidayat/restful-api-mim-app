@@ -13,7 +13,7 @@ apiRouter.get(
 );
 apiRouter.delete(
   "/api/meme_type/:memeTypeId",
-  MemeTypeController.destroyStoreMemeTypeByMemeTypeId
+  MemeTypeController.destroyMemeTypeByMemeTypeId
 );
 apiRouter.put(
   "/api/meme_type/:memeTypeId",

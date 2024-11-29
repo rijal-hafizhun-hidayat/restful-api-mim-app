@@ -78,7 +78,7 @@ export class MemeTypeController {
     }
   }
 
-  static async destroyStoreMemeTypeByMemeTypeId(
+  static async destroyMemeTypeByMemeTypeId(
     req: Request,
     res: Response,
     next: NextFunction
