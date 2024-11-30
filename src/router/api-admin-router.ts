@@ -2,6 +2,7 @@ import express from "express";
 import { AuthController } from "../controller/admin/auth-controller";
 import { authMiddleware } from "../middleware/auth-middleware";
 import { MemeTypeController } from "../controller/meme-type-controller";
+import { PostController } from "../controller/post-controller";
 
 const apiAdminRouter = express.Router();
 
@@ -21,6 +22,14 @@ apiAdminRouter.put(
 apiAdminRouter.delete(
   "/api/admin/meme_type/:memeTypeId",
   MemeTypeController.destroyMemeTypeByMemeTypeId
+);
+
+apiAdminRouter.get("/api/admin/post", PostController.getAllPost);
+apiAdminRouter.post("/api/admin/post", PostController.storePost);
+apiAdminRouter.get("/api/admin/post/:postId", PostController.findPostByPostId);
+apiAdminRouter.put(
+  "/api/admin/post/:postId",
+  PostController.updatePostByPostId
 );
 
 export { apiAdminRouter };
