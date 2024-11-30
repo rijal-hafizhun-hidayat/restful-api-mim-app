@@ -39,4 +39,42 @@ export class PostController {
       next(error);
     }
   }
+
+  static async findPostByPostId(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<any> {
+    try {
+      const postId: number = parseInt(req.params.postId);
+      const result = await PostService.findPostByPostId(postId);
+      return res.status(200).json({
+        statusCode: 200,
+        message: "success get post",
+        data: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async updatePostByPostId(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<any> {
+    try {
+      const postId: number = parseInt(req.params.postId);
+      const request: PostWithMemeTypesRequest =
+        req.body as PostWithMemeTypesRequest;
+      const result = await PostService.updatePostByPostId(postId, request);
+      return res.status(200).json({
+        statusCode: 200,
+        message: "success update post",
+        data: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
