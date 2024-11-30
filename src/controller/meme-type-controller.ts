@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
 import { MemeTypeService } from "../service/meme-type-service";
-import type { MemeType } from "../model/meme-type-model";
+import type { MemeType, MemeTypeRequest } from "../model/meme-type-model";
 
 export class MemeTypeController {
   static async getAllMemeType(
@@ -26,7 +26,7 @@ export class MemeTypeController {
     next: NextFunction
   ): Promise<any> {
     try {
-      const request: MemeType = req.body as MemeType;
+      const request: MemeTypeRequest = req.body as MemeTypeRequest;
       const result = await MemeTypeService.storeMemeType(request);
       return res.status(200).json({
         statusCode: 200,
@@ -63,7 +63,7 @@ export class MemeTypeController {
   ): Promise<any> {
     try {
       const memeTypeId: number = parseInt(req.params.memeTypeId);
-      const request: MemeType = req.body as MemeType;
+      const request: MemeTypeRequest = req.body as MemeTypeRequest;
       const result = await MemeTypeService.updateMemeTypeByMemeTypeId(
         request,
         memeTypeId

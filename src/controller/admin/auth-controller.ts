@@ -16,6 +16,8 @@ export class AuthController {
         message: "success login",
         data: result,
       });
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   }
 }

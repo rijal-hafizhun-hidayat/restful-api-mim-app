@@ -8,7 +8,7 @@ import { apiAdminRouter } from "../router/api-admin-router";
 
 const web = express();
 
-const whitelist: string[] = ["http://localhost:3000"];
+const whitelist: string[] = ["http://localhost:3000", "http://localhost:5173"];
 const corsOptions: CorsOptions = {
   origin: (
     origin: string | undefined,
@@ -27,9 +27,9 @@ const corsOptions: CorsOptions = {
 web.use(cors(corsOptions));
 web.use(express.json());
 web.use(apiRouter);
+web.use(apiAdminRouter);
 web.use(apiStorageRouter);
 web.use(apiStaticStorageFileRouter);
-web.use(apiAdminRouter);
 web.use(errorMiddleware);
 
 export { web };
