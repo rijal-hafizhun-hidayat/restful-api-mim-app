@@ -9,6 +9,12 @@ export interface MemeType {
   updated_at: Date;
 }
 
+export interface MemeTypeRequest {
+  name: string;
+  background_color: string;
+  text_color: string;
+}
+
 export function toMemeTypeResponse(memeType: meme_type): MemeType {
   return {
     id: memeType.id,

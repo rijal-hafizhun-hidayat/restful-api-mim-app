@@ -4,6 +4,7 @@ import {
   toMemeTypeResponse,
   toMemeTypeResponseArray,
   type MemeType,
+  type MemeTypeRequest,
 } from "../model/meme-type-model";
 import { MemeTypeValidation } from "../validation/meme-type-validation";
 import { Validation } from "../validation/validation";
@@ -14,8 +15,8 @@ export class MemeTypeService {
     return toMemeTypeResponseArray(memeTypes);
   }
 
-  static async storeMemeType(request: MemeType): Promise<MemeType> {
-    const requestBody: MemeType = Validation.validate(
+  static async storeMemeType(request: MemeTypeRequest): Promise<MemeType> {
+    const requestBody: MemeTypeRequest = Validation.validate(
       MemeTypeValidation.memeTypeRequest,
       request
     );
@@ -24,6 +25,8 @@ export class MemeTypeService {
       prisma.meme_type.create({
         data: {
           name: requestBody.name,
+          background_color: requestBody.background_color,
+          text_color: requestBody.text_color,
         },
       }),
     ]);
@@ -32,10 +35,10 @@ export class MemeTypeService {
   }
 
   static async updateMemeTypeByMemeTypeId(
-    request: MemeType,
+    request: MemeTypeRequest,
     memeTypeId: number
   ): Promise<MemeType> {
-    const requestBody: MemeType = Validation.validate(
+    const requestBody: MemeTypeRequest = Validation.validate(
       MemeTypeValidation.memeTypeRequest,
       request
     );
@@ -57,6 +60,8 @@ export class MemeTypeService {
         },
         data: {
           name: requestBody.name,
+          background_color: requestBody.background_color,
+          text_color: requestBody.text_color,
         },
       }),
     ]);
