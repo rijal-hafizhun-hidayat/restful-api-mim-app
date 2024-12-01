@@ -9,7 +9,8 @@ export class MemeTypeController {
     next: NextFunction
   ): Promise<any> {
     try {
-      const results = await MemeTypeService.getAllMemeType();
+      const query: Request["query"] = req.query;
+      const results = await MemeTypeService.getAllMemeType(query);
       return res.status(200).json({
         statusCode: 200,
         message: "success get meme_type",
