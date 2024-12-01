@@ -1,3 +1,4 @@
+import type { Request } from "express";
 import { prisma } from "../app/database";
 import { ErrorResponse } from "../error/error-response";
 import {
@@ -10,8 +11,20 @@ import { MemeTypeValidation } from "../validation/meme-type-validation";
 import { Validation } from "../validation/validation";
 
 export class MemeTypeService {
-  static async getAllMemeType(): Promise<MemeType[]> {
-    const memeTypes = await prisma.meme_type.findMany();
+  static async getAllMemeType(query: Request["query"]): Promise<MemeType[]> {
+    const { name } = query;
+    const memeTypesFilter: any = {};
+
+    if (name) {
+      memeTypesFilter.name = {
+        contains: name,
+      };
+    }
+
+    const memeTypes = await prisma.meme_type.findMany({
+      where: memeTypesFilter,
+    });
+
     return toMemeTypeResponseArray(memeTypes);
   }
 
