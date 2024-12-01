@@ -31,5 +31,9 @@ apiAdminRouter.put(
   "/api/admin/post/:postId",
   PostController.updatePostByPostId
 );
+apiAdminRouter.delete(
+  "/api/admin/post/:postId",
+  PostController.destroyPostByPostId
+);
 
 export { apiAdminRouter };

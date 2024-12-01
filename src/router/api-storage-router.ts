@@ -9,5 +9,10 @@ apiStorageRouter.post(
   uploadPostFile.single("file"),
   PostFileController.storePostFile
 );
+apiStorageRouter.patch(
+  "/api/storage/post/:postId/post_file",
+  uploadPostFile.single("file"),
+  PostFileController.updatePostFileByPostId
+);
 
 export { apiStorageRouter };
