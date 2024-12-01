@@ -3,6 +3,7 @@ import { prisma } from "../app/database";
 import {
   toPostResponse,
   toPostWithPostTypesAndPostFile,
+  toSinglePostWithPostTypesAndPostFile,
   type PostResponse,
   type PostsWithPostTypesAndPostFileResponse,
   type PostWithMemeTypesRequest,
@@ -12,6 +13,7 @@ import { PostValidation } from "../validation/post-validation";
 import { Validation } from "../validation/validation";
 import { FormatQueryParamsUtils } from "../utils/format-query-params-utils";
 import { ErrorResponse } from "../error/error-response";
+import { FileUtils } from "../utils/file-utils";
 
 export class PostService {
   static async storePost(
@@ -97,10 +99,20 @@ export class PostService {
     return toPostWithPostTypesAndPostFile(result);
   }
 
-  static async findPostByPostId(postId: number): Promise<PostResponse> {
+  static async findPostByPostId(
+    postId: number
+  ): Promise<PostsWithPostTypesAndPostFileResponse> {
     const post = await prisma.post.findUnique({
       where: {
         id: postId,
+      },
+      include: {
+        post_file: true,
+        post_types: {
+          include: {
+            meme_type: true,
+          },
+        },
       },
     });
 
@@ -108,7 +120,7 @@ export class PostService {
       throw new ErrorResponse(404, "post not found");
     }
 
-    return toPostResponse(post);
+    return toSinglePostWithPostTypesAndPostFile(post);
   }
 
   static async updatePostByPostId(
@@ -116,7 +128,7 @@ export class PostService {
     request: PostWithMemeTypesRequest
   ): Promise<PostResponse> {
     const requestBody: PostWithMemeTypesRequest = Validation.validate(
-      PostValidation.postWithMemeTypesRequest,
+      PostValidation.postRequest,
       request
     );
 
@@ -134,7 +146,12 @@ export class PostService {
       requestBody.meme_types
     );
 
-    const [updatedPost] = await prisma.$transaction([
+    const [destroyPostType, updatedPost] = await prisma.$transaction([
+      prisma.post_type.deleteMany({
+        where: {
+          post_id: postId,
+        },
+      }),
       prisma.post.update({
         where: {
           id: postId,
@@ -150,5 +167,34 @@ export class PostService {
     ]);
 
     return toPostResponse(updatedPost);
+  }
+
+  static async destroyPostByPostId(postId: number): Promise<PostResponse> {
+    const post = await prisma.post.findUnique({
+      where: {
+        id: postId,
+      },
+      include: {
+        post_file: true,
+      },
+    });
+
+    if (!post) {
+      throw new ErrorResponse(404, "post not found");
+    }
+
+    await FileUtils.isFileExistAndDestroyFile(
+      `src/storage/post/${post.post_file?.path}`
+    );
+
+    const [destroyedPost] = await prisma.$transaction([
+      prisma.post.delete({
+        where: {
+          id: postId,
+        },
+      }),
+    ]);
+
+    return toPostResponse(destroyedPost);
   }
 }

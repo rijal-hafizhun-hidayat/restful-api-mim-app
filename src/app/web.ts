@@ -27,9 +27,9 @@ const corsOptions: CorsOptions = {
 web.use(cors(corsOptions));
 web.use(express.json());
 web.use(apiRouter);
-web.use(apiAdminRouter);
 web.use(apiStorageRouter);
 web.use(apiStaticStorageFileRouter);
+web.use(apiAdminRouter);
 web.use(errorMiddleware);
 
 export { web };
