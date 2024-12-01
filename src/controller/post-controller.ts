@@ -28,7 +28,8 @@ export class PostController {
     next: NextFunction
   ): Promise<any> {
     try {
-      const result = await PostService.getAllPost(req.query);
+      const query: Request["query"] = req.query;
+      const result = await PostService.getAllPost(query);
       return res.status(200).json({
         statusCode: 200,
         message: "success get post",
