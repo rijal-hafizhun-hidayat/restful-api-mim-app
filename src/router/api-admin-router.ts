@@ -9,6 +9,7 @@ const apiAdminRouter = express.Router();
 apiAdminRouter.post("/api/admin/login", AuthController.login);
 
 apiAdminRouter.use(authMiddleware);
+apiAdminRouter.get("/api/admin/current_user", AuthController.currentUser);
 apiAdminRouter.get("/api/admin/meme_type", MemeTypeController.getAllMemeType);
 apiAdminRouter.post("/api/admin/meme_type", MemeTypeController.storeMemeType);
 apiAdminRouter.get(
