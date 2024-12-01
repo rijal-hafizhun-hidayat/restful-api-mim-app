@@ -67,14 +67,12 @@ export class PostService {
 
     if (meme_types) {
       const memeTypesId: number[] =
-        FormatQueryParamsUtils.formatQueryParamsMemeTypes(
-          meme_types as string[]
-        );
+        FormatQueryParamsUtils.formatQueryParamsMemeTypes(meme_types);
 
       postFilter.AND = [];
       postFilter.AND.push({
         post_types: {
-          every: {
+          some: {
             meme_type_id: {
               in: memeTypesId,
             },

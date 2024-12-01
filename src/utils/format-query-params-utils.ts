@@ -10,15 +10,9 @@ export class FormatQueryParamsUtils {
 
       return memeTypeId;
     } else {
-      const parsedMemeTypes: MemeType[] = memeTypes.map((memeType: string) => {
-        return JSON.parse(memeType);
-      });
-
-      return parsedMemeTypes.map((parsedMemeType) => {
-        return parsedMemeType.id;
+      return memeTypes.map((memeType: MemeType) => {
+        return Number(memeType.id);
       });
     }
-
-    //return idMemeTypes;
   }
 }
