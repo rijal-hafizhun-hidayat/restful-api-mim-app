@@ -1,5 +1,4 @@
 import type { Request } from "express";
-import { prisma } from "../app/database";
 import {
   toPostResponse,
   toPostWithPostTypesAndPostFile,
@@ -7,15 +6,16 @@ import {
   type PostResponse,
   type PostsWithPostTypesAndPostFileResponse,
   type PostWithMemeTypesRequest,
-} from "../model/post-model";
-import { FormatRequest } from "../utils/format-request";
-import { PostValidation } from "../validation/post-validation";
-import { Validation } from "../validation/validation";
-import { FormatQueryParamsUtils } from "../utils/format-query-params-utils";
-import { ErrorResponse } from "../error/error-response";
-import { FileUtils } from "../utils/file-utils";
+} from "../../model/post-model";
+import { prisma } from "../../app/database";
+import { FileUtils } from "../../utils/file-utils";
+import { FormatRequest } from "../../utils/format-request";
+import { ErrorResponse } from "../../error/error-response";
+import { FormatQueryParamsUtils } from "../../utils/format-query-params-utils";
+import { Validation } from "../../validation/validation";
+import { PostValidation } from "../../validation/post-validation";
 
-export class PostService {
+export class AdminPostService {
   static async storePost(
     request: PostWithMemeTypesRequest
   ): Promise<PostResponse> {
@@ -67,7 +67,7 @@ export class PostService {
 
     if (meme_types) {
       const memeTypesId: number[] =
-        FormatQueryParamsUtils.formatPublicQueryParamsMemeTypes(meme_types);
+        FormatQueryParamsUtils.formatAdminQueryParamsMemeTypes(meme_types);
 
       postFilter.AND = [];
       postFilter.AND.push({
