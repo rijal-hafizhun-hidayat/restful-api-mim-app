@@ -1,6 +1,7 @@
 import express from "express";
 import { MemeTypeController } from "../controller/meme-type-controller";
 import { PostController } from "../controller/post-controller";
+import { FeedbackController } from "../controller/feedback-controller";
 
 const apiRouter = express.Router();
 
@@ -25,5 +26,10 @@ apiRouter.put(
 apiRouter.get("/api/post", PostController.getAllPost);
 apiRouter.post("/api/post", PostController.storePost);
 //end post
+
+//start feedback
+apiRouter.get("/api/feedback", FeedbackController.getAllFeedback);
+apiRouter.post("/api/feedback", FeedbackController.storeFeedback);
+//end feedback
 
 export { apiRouter };

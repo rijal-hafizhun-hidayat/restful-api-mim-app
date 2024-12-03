@@ -84,3 +84,10 @@ model user_role {
   user user @relation(fields: [user_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
   role role @relation(fields: [role_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
 }
+
+model feedback {
+  id         Int      @id @default(autoincrement())
+  feedback   String   @db.VarChar()
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
