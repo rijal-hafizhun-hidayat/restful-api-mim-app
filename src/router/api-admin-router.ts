@@ -2,8 +2,8 @@ import express from "express";
 import { AuthController } from "../controller/admin/auth-controller";
 import { authMiddleware } from "../middleware/auth-middleware";
 import { MemeTypeController } from "../controller/meme-type-controller";
-import { PostController } from "../controller/post-controller";
 import { RoleController } from "../controller/role-controller";
+import { AdminPostController } from "../controller/admin/admin-post-controller";
 
 const apiAdminRouter = express.Router();
 
@@ -26,16 +26,19 @@ apiAdminRouter.delete(
   MemeTypeController.destroyMemeTypeByMemeTypeId
 );
 
-apiAdminRouter.get("/api/admin/post", PostController.getAllPost);
-apiAdminRouter.post("/api/admin/post", PostController.storePost);
-apiAdminRouter.get("/api/admin/post/:postId", PostController.findPostByPostId);
+apiAdminRouter.get("/api/admin/post", AdminPostController.getAllPost);
+apiAdminRouter.post("/api/admin/post", AdminPostController.storePost);
+apiAdminRouter.get(
+  "/api/admin/post/:postId",
+  AdminPostController.findPostByPostId
+);
 apiAdminRouter.put(
   "/api/admin/post/:postId",
-  PostController.updatePostByPostId
+  AdminPostController.updatePostByPostId
 );
 apiAdminRouter.delete(
   "/api/admin/post/:postId",
-  PostController.destroyPostByPostId
+  AdminPostController.destroyPostByPostId
 );
 
 apiAdminRouter.get("/api/admin/role", RoleController.getAll);
