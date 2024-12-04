@@ -33,7 +33,7 @@ export class PostController {
     try {
       const query: Request["query"] = req.query;
       const result = await PostService.getAllPost(query);
-      const countPost: number = await PostService.countAllPost();
+      const countPost: number = await PostService.countAllPost(query);
       return res.status(200).json({
         statusCode: 200,
         message: "success get post",

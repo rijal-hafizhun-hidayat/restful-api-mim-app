@@ -43,8 +43,48 @@ export class PostService {
     return toPostResponse(storedPostPostTypes);
   }
 
-  static async countAllPost(): Promise<number> {
-    const countPost = await prisma.post.count();
+  static async countAllPost(query: Request["query"]): Promise<number> {
+    const { search, meme_types } = query;
+
+    const postFilter: any = {};
+
+    if (search) {
+      postFilter.OR = [];
+      postFilter.OR.push({
+        name: {
+          contains: search as string,
+        },
+      });
+
+      postFilter.OR.push({
+        content: {
+          contains: search as string,
+        },
+      });
+    }
+
+    if (meme_types) {
+      const memeTypesId: number[] =
+        FormatQueryParamsUtils.formatPublicQueryParamsMemeTypes(meme_types);
+
+      postFilter.AND = [];
+      postFilter.AND.push({
+        post_types: {
+          some: {
+            meme_type_id: {
+              in: memeTypesId,
+            },
+          },
+        },
+      });
+    }
+
+    const countPost = await prisma.post.count({
+      orderBy: {
+        created_at: "desc",
+      },
+      where: postFilter,
+    });
 
     return countPost;
   }
