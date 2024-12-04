@@ -14,30 +14,80 @@ datasource db {
 }
 
 model post {
-  id           Int      @id @default(autoincrement())
-  name         String   @db.VarChar()
-  created_at   DateTime @default(now())
-  updated_at   DateTime @updatedAt
-  post_type_id Int
-
-  post_types post_type  @relation(fields: [post_type_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  post_file  post_file?
-}
-
-model post_type {
   id         Int      @id @default(autoincrement())
   name       String   @db.VarChar()
+  content    String   @db.VarChar()
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  post       post[]
+
+  post_file  post_file?
+  post_types post_type[]
+}
+
+model meme_type {
+  id               Int         @id @default(autoincrement())
+  name             String      @db.VarChar()
+  background_color String      @db.VarChar()
+  text_color       String      @db.VarChar()
+  created_at       DateTime    @default(now())
+  updated_at       DateTime    @updatedAt
+  post_type        post_type[]
 }
 
 model post_file {
   id         Int      @id @default(autoincrement())
   path       String   @db.VarChar()
+  type_file  String   @db.VarChar()
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   post_id    Int      @unique
 
   post post @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model post_type {
+  id           Int      @id @default(autoincrement())
+  post_id      Int
+  meme_type_id Int
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  post      post      @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  meme_type meme_type @relation(fields: [meme_type_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model user {
+  id         Int        @id @default(autoincrement())
+  name       String     @db.VarChar()
+  email      String     @unique @db.VarChar()
+  password   String     @db.VarChar()
+  created_at DateTime   @default(now())
+  updated_at DateTime   @updatedAt
+  user_role  user_role?
+}
+
+model role {
+  id         Int         @id @default(autoincrement())
+  name       String      @db.VarChar()
+  created_at DateTime    @default(now())
+  updated_at DateTime    @updatedAt
+  user_role  user_role[]
+}
+
+model user_role {
+  id         Int      @id @default(autoincrement())
+  user_id    Int      @unique
+  role_id    Int
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  user user @relation(fields: [user_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  role role @relation(fields: [role_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
+}
+
+model feedback {
+  id         Int      @id @default(autoincrement())
+  feedback   String   @db.VarChar()
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
