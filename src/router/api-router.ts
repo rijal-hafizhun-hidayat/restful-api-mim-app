@@ -28,7 +28,6 @@ apiRouter.post("/api/post", PostController.storePost);
 //end post
 
 //start feedback
-apiRouter.get("/api/feedback", FeedbackController.getAllFeedback);
 apiRouter.post("/api/feedback", FeedbackController.storeFeedback);
 //end feedback
 
