@@ -1,5 +1,8 @@
 import type { NextFunction, Request, Response } from "express";
-import type { PostWithMemeTypesRequest } from "../model/post-model";
+import type {
+  PostsWithPostTypesAndPostFileResponse,
+  PostWithMemeTypesRequest,
+} from "../model/post-model";
 import { PostService } from "../service/post-service";
 
 export class PostController {
@@ -30,10 +33,12 @@ export class PostController {
     try {
       const query: Request["query"] = req.query;
       const result = await PostService.getAllPost(query);
+      const countPost: number = await PostService.countAllPost();
       return res.status(200).json({
         statusCode: 200,
         message: "success get post",
         data: result,
+        post_count: countPost,
       });
     } catch (error) {
       next(error);
