@@ -28,6 +28,12 @@ async function main() {
         background_color: "bg-blue-100",
         text_color: "text-blue-800",
       },
+      {
+        id: 5,
+        name: "other",
+        background_color: "bg-slate-100",
+        text_color: "text-slate-800",
+      },
     ],
   });
 

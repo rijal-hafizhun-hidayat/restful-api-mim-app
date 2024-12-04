@@ -43,6 +43,12 @@ export class PostService {
     return toPostResponse(storedPostPostTypes);
   }
 
+  static async countAllPost(): Promise<number> {
+    const countPost = await prisma.post.count();
+
+    return countPost;
+  }
+
   static async getAllPost(
     query: Request["query"]
   ): Promise<PostsWithPostTypesAndPostFileResponse[]> {
@@ -83,6 +89,9 @@ export class PostService {
 
     const result = await prisma.post.findMany({
       take: cursor ? parseInt(cursor as string) : 5,
+      orderBy: {
+        created_at: "desc",
+      },
       where: postFilter,
       include: {
         post_file: true,

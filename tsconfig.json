@@ -24,7 +24,4 @@
     "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false
   },
-  "include": [
-    "./api/*.ts",
-  ],
 }

@@ -25,6 +25,7 @@ apiRouter.put(
 //start post
 apiRouter.get("/api/post", PostController.getAllPost);
 apiRouter.post("/api/post", PostController.storePost);
+apiRouter.get("/api/post/:postId", PostController.findPostByPostId);
 //end post
 
 //start feedback

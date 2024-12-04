@@ -83,6 +83,9 @@ export class AdminPostService {
 
     const result = await prisma.post.findMany({
       take: cursor ? parseInt(cursor as string) : 5,
+      orderBy: {
+        created_at: "desc",
+      },
       where: postFilter,
       include: {
         post_file: true,
