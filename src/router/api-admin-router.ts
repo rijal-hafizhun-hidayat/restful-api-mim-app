@@ -4,6 +4,7 @@ import { authMiddleware } from "../middleware/auth-middleware";
 import { MemeTypeController } from "../controller/meme-type-controller";
 import { RoleController } from "../controller/role-controller";
 import { AdminPostController } from "../controller/admin/admin-post-controller";
+import { FeedbackController } from "../controller/feedback-controller";
 
 const apiAdminRouter = express.Router();
 
@@ -52,5 +53,7 @@ apiAdminRouter.put(
   "/api/admin/role/:roleId",
   RoleController.updateRoleByRoleId
 );
+
+apiAdminRouter.get("/api/admin/feedback", FeedbackController.getAllFeedback);
 
 export { apiAdminRouter };
