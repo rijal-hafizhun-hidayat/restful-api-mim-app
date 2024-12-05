@@ -9,7 +9,8 @@ export class FeedbackController {
     next: NextFunction
   ): Promise<any> {
     try {
-      const result = await FeedbackService.getAllFeedback();
+      const query: Request["query"] = req.query;
+      const result = await FeedbackService.getAllFeedback(query);
       return res.status(200).json({
         statusCode: 200,
         message: "success store feedback",
