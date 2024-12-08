@@ -9,7 +9,7 @@ import { apiAdminRouter } from "../router/api-admin-router";
 const web = express();
 
 const whitelist: string[] = [
-  Bun.env.BASE_URL_MIM_APP as string,
+  "http://203.194.113.132:3000",
   "http://localhost:5173",
 ];
 const corsOptions: CorsOptions = {
