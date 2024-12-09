@@ -60,14 +60,16 @@ export function toPostWithPostTypesAndPostFile(
     content: post.content,
     created_at: post.created_at,
     updated_at: post.updated_at,
-    post_file: {
-      id: post.post_file!.id,
-      path: `${Bun.env.BASE_URL}/storage-file/post/${post.post_file!.path}`,
-      created_at: post.post_file!.created_at,
-      updated_at: post.post_file!.updated_at,
-      post_id: post.post_file!.post_id,
-      type_file: post.post_file!.type_file,
-    },
+    post_file: post.post_file
+      ? {
+          id: post.post_file.id,
+          path: `${Bun.env.BASE_URL}/storage-file/post/${post.post_file.path}`,
+          created_at: post.post_file.created_at,
+          updated_at: post.post_file.updated_at,
+          post_id: post.post_file.post_id,
+          type_file: post.post_file.type_file,
+        }
+      : null,
     post_types: post.post_types.map((post_type) => ({
       id: post_type.id,
       post_id: post_type.post_id,
