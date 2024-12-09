@@ -9,7 +9,7 @@ import { apiAdminRouter } from "../router/api-admin-router";
 const web = express();
 
 const whitelist: string[] = [
-  "http://203.194.113.132:3000",
+  `${process.env.BASE_URL_MIM_APP}`,
   "http://localhost:5173",
 ];
 const corsOptions: CorsOptions = {
