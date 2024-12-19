@@ -10,7 +10,7 @@ const web = express();
 
 const whitelist: string[] = [
   `${process.env.BASE_URL_MIM_APP}`,
-  "http://localhost:5173",
+  `${process.env.BASE_URL_CMS_MIM_APP}`,
 ];
 const corsOptions: CorsOptions = {
   origin: (
